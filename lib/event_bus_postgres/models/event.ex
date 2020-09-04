@@ -5,17 +5,16 @@ defmodule EventBus.Postgres.Model.Event do
 
   use Ecto.Schema
 
-  alias EventBus.Postgres.{Config, Model.Event}
+  alias EventBus.Postgres.{Config, Model.Event, Type.Base62}
 
-  @primary_key {:id, :binary_id, autogenerate: true}
-  @foreign_key_type :binary_id
+  @primary_key {:id, Base62, []}
   schema "events" do
     field(:data, :binary)
     field(:initialized_at, :integer)
     field(:occurred_at, :integer)
     field(:source, :string)
     field(:topic, :string)
-    field(:transaction_id, Ecto.UUID)
+    field(:transaction_id, Base62)
     field(:ttl, :integer)
   end
 
